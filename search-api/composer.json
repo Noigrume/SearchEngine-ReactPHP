@@ -1,0 +1,14 @@
+{
+    "name": "moi/search-api",
+    "autoload": {
+        "psr-4": {
+            "Moi\\SearchApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lucie"
+        }
+    ],
+    "require": {}
+}
