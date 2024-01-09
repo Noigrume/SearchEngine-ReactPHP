@@ -6,20 +6,15 @@ class Database
 {
     public function getConnection()
     {
-        $host = '';
-        $db = '';
-        $user = '';
-        $pass = '';
-        $charset = 'utf8mb4';
 
-        $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+        $dsn = 'mysql:host=' . BDD_HOST . ';dbname=' . BDD_NAME . ';charset=utf8';
         $options = [
             \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,
             \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
             \PDO::ATTR_EMULATE_PREPARES   => false,
         ];
         try {
-            return new \PDO($dsn, $user, $pass, $options);
+            return new \PDO($dsn, BDD_USER, BDD_PASSWORD, $options);
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
