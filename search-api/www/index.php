@@ -10,7 +10,7 @@ switch ($request) {
     case '/SearchEngine-ReactPHP/search-api/www/search':
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new \App\Controllers\SearchController();
-            echo $controller->getAllMusics($_GET['query'] ?? '');
+            echo $controller->searchProducts($_GET['query'] ?? '');
         } else {
             http_response_code(405);
             echo 'Method Not Allowed';
