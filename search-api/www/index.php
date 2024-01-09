@@ -3,10 +3,11 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require '../config.php';
 
-// basic outer
+// basic router
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch ($request) {
+
     case '/SearchEngine-ReactPHP/search-api/www/search':
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $controller = new \App\Controllers\SearchController();
