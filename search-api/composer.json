@@ -2,7 +2,7 @@
     "name": "moi/search-api",
     "autoload": {
         "psr-4": {
-            "Moi\\SearchApi\\": "src/"
+            "App\\": "src/"
         }
     },
     "authors": [
