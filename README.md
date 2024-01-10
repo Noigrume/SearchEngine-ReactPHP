@@ -16,7 +16,7 @@ Follow these steps to install the Search Engine Application:
 
 ### Backend Setup
 
-1. Navigate to the backend directory:
+1. Navigate to the backend directory: cd search-api
 
 2. Install PHP dependencies using Composer: composer install
 
@@ -24,17 +24,11 @@ Follow these steps to install the Search Engine Application:
 
 ### Frontend Setup
 
-1. Navigate to the frontend directory:
+1. Navigate to the frontend directory: react-search-app
 
 2. Install Node.js dependencies using npm: npm install
 
 ## Running the Application
-
-### Starting the Backend Server
-
-1. From the backend directory, start the PHP server:
-
-Ensure port `8000` is available or use a different port.
 
 ### Starting the Frontend Development Server
 
