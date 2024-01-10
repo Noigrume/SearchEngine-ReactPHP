@@ -3,6 +3,10 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require '../config.php';
 
+use App\Middlewares\CorsMiddleware;
+//CORS
+CorsMiddleware::applyHeaders();
+
 // basic router
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
