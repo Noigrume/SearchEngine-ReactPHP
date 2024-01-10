@@ -1,21 +1,23 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once '../vendor/autoload.php';
 require '../config.php';
 
 use App\Middlewares\CorsMiddleware;
-//CORS
+//CORS MIDDLEWARE
 CorsMiddleware::applyHeaders();
 
-// basic router
+// BASIC ROUTER
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch ($request) {
 
     case '/SearchEngine-ReactPHP/search-api/www/search':
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $query = $_GET['query'] ?? '';
+            validateQuery($query);
             $controller = new \App\Controllers\SearchController();
-            echo $controller->searchProducts($_GET['query'] ?? '');
+            echo $controller->searchProducts($query);
         } else {
             http_response_code(405);
             echo 'Method Not Allowed';
@@ -26,4 +28,23 @@ switch ($request) {
         http_response_code(404);
         echo '404 Not Found';
         break;
+}
+
+// SANITIZE QUERY
+function validateQuery($query)
+{
+    $query = trim($query);
+
+    if (empty($query)) {
+        http_response_code(400);
+        echo 'Query parameter is required';
+        exit;
+    }
+
+    // PAYLOAD TOO LARGE
+    if (strlen($query) > 255) {
+        http_response_code(413);
+        echo 'Query too long';
+        exit;
+    }
 }
