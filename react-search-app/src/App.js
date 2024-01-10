@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import axios from 'axios';
+import React, { useState } from 'react';
+import SearchBar from './SearchBar';
+import ProductList from './ProductList';
 import './App.css';
-
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [products, setProducts] = useState([]);
+
+    const handleSearch = async (query) => {
+        try {
+            const response = await axios.get(`http://localhost/SearchEngine-ReactPHP/search-api/www/search?query=${query}`);
+            setProducts(response.data);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+        
+    return (
+        <div>
+            <SearchBar onSearch={handleSearch} />
+            <ProductList products={products} />
+        </div>
+    );
 }
 
 export default App;
