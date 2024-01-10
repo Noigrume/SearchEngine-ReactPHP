@@ -1,6 +1,6 @@
 # Search Engine Application
 
-This search engine application is built with a native PHP backend and a React frontend. It provides a dynamic user interface for searching and displaying results from a dataset.
+This search engine application is built with a native PHP backend and a React frontend. It provides a dynamic user interface for searching and displaying sorted products.
 
 ## Prerequisites
 
