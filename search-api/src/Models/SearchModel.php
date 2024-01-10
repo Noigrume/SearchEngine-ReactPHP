@@ -9,14 +9,28 @@ class SearchModel extends Model
 
     public function searchProduct($query): array
     {
-
+        //+ test + test2
         $sql = 'SELECT 
             product.product_id, 
             product_description.name, 
             product_description.title, 
-            product_description.description,
-            product_description.tag,
-            product_description.main_tag
+            product_description.main_tag,
+            -- extracts the value of filterName
+            JSON_UNQUOTE(JSON_EXTRACT(
+                product_description.filters_json, 
+                CONCAT("$[", 
+                    JSON_UNQUOTE(
+                        JSON_SEARCH(
+                            product_description.filters_json, 
+                            "one", 
+                            ?, 
+                            NULL, 
+                            "$[*].filterGroup"
+                        )
+                    ), 
+                "].filterName")
+            )) AS filterName
+            -- JSON_UNQUOTE(JSON_EXTRACT(product_description.filters_json, "$[0].filterName" )) AS editor_rank
         FROM 
             oc_product product
         JOIN 
@@ -29,17 +43,28 @@ class SearchModel extends Model
             AND product_description.language_id = 1 
             AND product.subscription = 0
             AND (
-                product_description.name LIKE CONCAT( ? ) 
-                OR product_description.description LIKE CONCAT( ? ) 
-                OR product_description.tag LIKE CONCAT( ? ) 
-                OR product_description.main_tag LIKE CONCAT( ? )
-            )
-        ORDER BY 
-            (product_description.main_tag LIKE CONCAT( ? )) DESC, 
-            product.product_id;';
+                -- FULLTEXT SEARCH DOESNT WORK WITH MULTIPLE FIELDS
+                MATCH(product_description.description) AGAINST(? )
+                OR MATCH(product_description.tag) AGAINST(?)
+                OR MATCH(product_description.main_tag) AGAINST(?)
+            --     product_description.description LIKE  
+                OR product_description.title LIKE  ?
+            --     OR product_description.tag LIKE  
+            --     OR product_description.main_tag LIKE  
+             )
+            ORDER BY 
+            -- PRIORITIZE MAIN_TAG
+                CASE 
+                    WHEN product_description.main_tag LIKE CONCAT(?) THEN 1
+                    ELSE 2
+                END, 
+            -- THEN BY EDITOR RANK
+                filterName DESC';
 
         $likeQuery = '%' . $query . '%';
-
-        return self::$database->fetchAllRows($sql, [$likeQuery, $likeQuery, $likeQuery, $likeQuery, $likeQuery]);
+        // Count the number of ? in the SQL query (event in comments !)
+        $placeholderCount = substr_count($sql, '?');
+        $parameters = array_fill(0, $placeholderCount, $likeQuery);
+        return self::$database->fetchAllRows($sql, $parameters);
     }
 }
