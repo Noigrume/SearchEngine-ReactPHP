@@ -4,7 +4,7 @@ function ProductList({ products }) {
   return (
     <ul className="product-list">
       {products.map((product, index) => (
-        <article>
+        <li className="product">
           <span class="card-ranked">{index + 1}</span>
           <figcaption>
             <h4>
@@ -12,7 +12,7 @@ function ProductList({ products }) {
             </h4>
             <p className="product-maintag">{product.main_tag}</p>
           </figcaption>
-        </article>
+        </li>
       ))}
     </ul>
   );
