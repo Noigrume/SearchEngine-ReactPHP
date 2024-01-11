@@ -16,21 +16,23 @@ class SearchModel extends Model
             product_description.title, 
             product_description.main_tag,
             -- extracts the value of filterName
-            JSON_UNQUOTE(JSON_EXTRACT(
-                product_description.filters_json, 
-                CONCAT("$[", 
-                    JSON_UNQUOTE(
-                        JSON_SEARCH(
-                            product_description.filters_json, 
-                            "one", 
-                            ?, 
-                            NULL, 
-                            "$[*].filterGroup"
-                        )
-                    ), 
-                "].filterName")
-            )) AS filterName
-            -- JSON_UNQUOTE(JSON_EXTRACT(product_description.filters_json, "$[0].filterName" )) AS editor_rank
+
+-- THIS DOESNT WORK AS IS
+            -- JSON_UNQUOTE(JSON_EXTRACT(
+            --     product_description.filters_json, 
+            --     CONCAT("$[", 
+            --         JSON_UNQUOTE(
+            --             JSON_SEARCH(
+            --                 product_description.filters_json, 
+            --                 "one", 
+            --                 "editor rank ",  
+            --                 NULL, 
+            --                 "$[*].filterGroup"
+            --             )
+            --         ), 
+            --     "].filterName")
+            -- )) AS editor_rank
+            JSON_UNQUOTE(JSON_EXTRACT(product_description.filters_json, "$[0].filterName" )) AS editor_rank
         FROM 
             oc_product product
         JOIN 
@@ -59,7 +61,7 @@ class SearchModel extends Model
                     ELSE 2
                 END, 
             -- THEN BY EDITOR RANK
-                filterName DESC';
+            editor_rank DESC';
 
         $likeQuery = '%' . $query . '%';
         // Count the number of ? in the SQL query (event in comments !)
