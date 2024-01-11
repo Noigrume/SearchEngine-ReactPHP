@@ -2,78 +2,23 @@
   text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
 h1 {
   font-size: xx-large;
 }
-form {
-  margin: 50px auto;
+
+a {
+  text-decoration: none;
 }
 
-.products-container {
-  background: #121212;
-  color: #fff;
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  border-radius: 8px;
+.search-title {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: xx-large;
 }
 
-.product-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.product-header h1 {
-  margin: 0;
-}
-
-.product-header button {
-  padding: 10px;
-  background-color: #7c5dfa;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.product-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.product-item {
-  background: #252945;
-  margin-bottom: 15px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.product-item span {
-  display: block;
-}
+/* 
+SEARCH FIELD 
+*/
 
 .search-container {
   display: flex;
@@ -119,39 +64,70 @@ form {
     align-items: stretch;
   }
 
-  .search-input {
+  .search-input,
+  .search-button {
     margin-right: 0;
     margin-bottom: 10px;
+    width: 100%;
+    padding: 8px 10px;
   }
 
-  .search-button {
+  .search-title {
+    font-size: x-large;
+  }
+
+  .product {
     width: 100%;
+    padding: 15px 15px;
+  }
+
+  .card-ranked,
+  .product section span {
+    font-size: 18px;
   }
 }
 
 @media (max-width: 480px) {
-  .search-input {
-    padding: 8px 10px;
+  .product {
+    background-size: cover;
+    padding: 10px 10px;
   }
 
-  .search-button {
-    padding: 8px 10px;
+  .card-ranked,
+  .product section span {
+    font-size: 16px;
+  }
+
+  .product-title,
+  .product-maintag {
+    font-size: 0.9em;
   }
 }
 
-/* card */
-
-a {
-  text-decoration: none;
+/* 
+PRODUCTS
+*/
+.products-container {
+  background: #121212;
+  color: #fff;
+  max-width: 1800px;
+  margin: auto;
+  padding: 20px;
 }
-article {
+
+.product-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.product {
   position: relative;
   display: flex;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: left;
   margin-bottom: 40px;
-  width: 80%;
-  /* height: 395px; */
+  width: 90%;
   padding: 20px 20px;
   background: linear-gradient(
       0deg,
@@ -159,10 +135,8 @@ article {
       rgba(0, 14, 26, 0.718)
     ),
     url(https://picsum.photos/id/1043/800/600);
-  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 100%;
   border-radius: 10px;
   box-shadow: 5px 5px 8px -1px rgba(0, 0, 0, 0.62);
   overflow: hidden;
@@ -172,31 +146,28 @@ article {
   position: absolute;
   bottom: 0;
   right: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 10px;
+  padding: 7px;
   background-color: rgba(241, 196, 15, 0.8);
   text-shadow: 1px 1px rgba(0, 0, 0, 0.7);
   color: white;
-  line-height: 1;
   font-family: "Source Code Pro", sans-serif;
-  font-size: 20px;
-  font-weight: 900;
+  font-size: 15px;
+  font-weight: 800;
 }
 
-article figcaption h4 {
+.product section span {
   margin: 0 0 5px;
   font-family: "Source Code Pro", sans-serif;
   font-size: 24px;
-  line-height: 1.35;
   color: #fff;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.7);
+  text-align: center;
 }
+
 .product-title {
-  background-color: rgba(241, 196, 15, 0.8);
+  background-color: rgba(0, 0, 0, 0.34);
 }
+
 .product-maintag {
   margin: 0;
   line-height: 1.5;

@@ -1,11 +1,19 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import ProductList from "./components/ProductList";
 import "./App.css";
 
 function App() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(() => {
+    const localValue = localStorage.getItem("PRODUCTS");
+    if (localValue == null) return [];
+    return JSON.parse(localValue);
+  });
+
+  useEffect(() => {
+    localStorage.setItem("PRODUCTS", JSON.stringify(products));
+  }, [products]);
 
   const handleSearch = async (query) => {
     try {
@@ -21,7 +29,7 @@ function App() {
 
   return (
     <div>
-      <div class="product-header"></div>
+      <h2 className="search-title"></h2>
       <SearchBar onSearch={handleSearch} />
       <ProductList products={products} />
     </div>
